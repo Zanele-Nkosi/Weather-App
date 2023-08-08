@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/4f10431c21.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="src/style.css">
+
+  </head>
+  <body>
+    <div class="container" class="container-lg" style="margin-top:3rem" style="width: 1rem">
+      <div class="card"  >
+        <div class="body">
+          <form id="searchForm">
+            <input
+              placeholder="Search for a city"
+              type="text"
+              class="search-bar"
+              id="search-engine"
+            />
+            <button type="submit" class="btn btn-light">Search</button>
+              <button
+                class="btn btn-success"
+                id="current-location-button"
+              >
+                Current
+              </button>
+
+               </form>
+          <br>  
+          <h1 id="city">
+            Nelspruit
+          </h1>
+          <div>
+              <span class="temperature-today"></span>
+            <ul class="humidity-wind">
+              <li>
+                Humidity:
+                <span id="humidity"></span>
+                %
+              </li>
+              <li>
+                Wind:
+                <span id="wind"></span>
+                km/h
+              </li>
+            </ul>
+          </div>
+        
+          <p class="date" id="current-time">Monday 12:30</p>
+        
+
+          <i class="fas fa-cloud-moon-rain"></i>
+
+          <br />
+          <br />
+      
+          <span class= current-temp>
+          <p id="current-temp"> °C</p> </span>
+          <p>
+            HAVE A LOVELY DAY
+          </p>
+
+            <div class = "temp-container">
+        <div class="row weekDays">
+          <div class="col-sm">
+            Mon
+          </div>
+          <div class="col-sm">
+              Tues
+            </div>
+            <div class="col-sm">
+                Weds
+              </div>
+              <div class="col-sm">
+                  Thurs
+                </div>
+                <div class="col-sm">
+                    Fri
+                  </div>
+                  <div class="col-sm">
+                      Sat
+                    </div>
+                  </div>
+            <div class="row weather-emojis">
+              <div class="col-sm">
+                  <i class="fas fa-cloud-sun"></i>
+              </div>
+              <div class="col-sm">
+                  <i class="fas fa-cloud-sun"></i>
+              </div>
+              <div class="col-sm">
+                  <i class="fas fa-cloud-sun"></i>
+              </div>
+              <div class="col-sm">
+                  <i class="fas fa-cloud-showers-heavy"></i>
+              </div>
+              <div class="col-sm">
+                  <i class="fas fa-sun"></i>
+              </div>
+              <div class="col-sm">
+                  <i class="fas fa-sun"></i>
+              </div>
+            </div>
+            <div class="row week-dates">
+              <div class="col-sm">
+                  8/16
+              </div>
+                  <div class="col-sm temp">
+                      8/17
+                  </div>
+                      <div class="col-sm temp">
+                          8/18
+                      </div> 
+                      <div class="col-sm temp">
+                          8/19
+                      </div>  
+                      <div class="col-sm temp">
+                          8/20
+                      </div>  
+                      <div class="col-sm temp">
+                          8/21
+                      </div>   
+          </div>
+        </div>
+
+        <script src="src/index.js"></script>
+  </body>
+</html>
