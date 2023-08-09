@@ -34,66 +34,46 @@ p.innerHTML = `${day} ${hours}:${minutes}`;
 
 let apiKey = "d09f23af6c4b890697b8cf39be4c6279";
 
-document
-  .getElementById("searchForm")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-    const city = document.getElementById("search-engine").value;
-    getWeatherData(city);
-  });
+function displayWeatherCondition(response) {
+  document.querySelector("#city").textContent = response.data.name;
+  document.querySelector(".current-temp").textContent = Math.round(
+    response.data.main.temp
+  );
 
-document
-  .getElementById("current-location-button")
-  .addEventListener("click", function () {
-    getCurrentLocationWeather();
-  });
+  document.querySelector("#humidity").textContent = response.data.main.humidity;
+  document.querySelector("#wind").textContent = Math.round(
+    response.data.wind.speed
+  );
 
-function getWeatherData(city) {
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-  fetch(apiUrl)
-    .then((response) => response.json())
-    .then((data) => {
-      updateWeatherData(data);
-    })
-    .catch((error) => {
-      console.error("Error fetching weather data:", error);
-    });
+  document.querySelector("#description").textContent =
+    response.data.weather[0].main;
 }
 
-function getCurrentLocationWeather() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        let latitude = position.coords.latitude;
-        let longitude = position.coords.longitude;
-        let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-
-        fetch(apiUrl)
-          .then((response) => response.json())
-          .then((data) => {
-            updateWeatherData(data);
-          })
-          .catch((error) => {
-            console.error("Error fetching weather data:", error);
-          });
-      },
-      function (error) {
-        console.error("Error getting current location:", error);
-      }
-    );
-  } else {
-    console.error("Geolocation is not supported by this browser.");
-  }
+function searchCity(city) {
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayWeatherCondition);
 }
 
-function updateWeatherData(data) {
-  document.getElementById("city").textContent = data.name;
-
-  let roundedTemp = Math.round(data.main.temp);
-  document.getElementById("current-temp").textContent = `${roundedTemp} °C`;
-
-  document.getElementById("humidity").textContent = data.main.humidity;
-
-  document.getElementById("wind").textContent = data.wind.speed;
+function handleSubmit(event) {
+  event.preventDefault();
+  let city = document.querySelector(".search-bar").value;
+  searchCity(city);
 }
+
+function searchLocation(position) {
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(displayWeatherCondition);
+}
+
+function getCurrentLocation(event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(searchLocation);
+}
+
+searchForm.addEventListener("submit", handleSubmit);
+
+let currentLocationButton = document.querySelector("#current-location-button");
+currentLocationButton.addEventListener("click", getCurrentLocation);
+
+searchCity("Nelspruit");
